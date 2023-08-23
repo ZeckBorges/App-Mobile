@@ -17,7 +17,7 @@ const Cadastro = ( { navigation }) => {
     console.log(dadosUsuario);
 
     // URL da sua API no Firebase para cadastro de usuários
-    const apiUrl = 'http://localhost:5000/api/caduser';
+    const apiUrl = 'http://192.168.3.34:5000/api/caduser';
 
     axios.post(apiUrl, dadosUsuario)
       .then((response) => {

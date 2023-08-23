@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import Perfil from './perfil';
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -29,15 +29,11 @@ const Login = () => {
             // Signed in 
             const user = userCredential.user;
             const uid = user.uid;
-            console.log('id',uid)
-            const apiUrl = 'http://localhost:5000/api/perfil';
+            console.log('id',uid);
+
+            navigation.navigate('Perfil', {uid});
             
-            await axios.post(apiUrl, { uid }).then((response) => {
-              console.log('Logado com sucesso!:', response.data);
-              
-            }).catch((error) => {
-              console.error('Erro ao logar:', error);
-            })
+            
       }).catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;

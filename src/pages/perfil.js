@@ -1,73 +1,50 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import axios from 'axios';
 
-const Perfil = () => {
+const Perfil = ({ route }) => {
+  const { uid } = route.params;
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://192.168.3.34:5000/api/perfil', { uid });
+        const dadosUsuario = response.data;
+        setNome(dadosUsuario.user.nome);
+        setEmail(dadosUsuario.user.email);
+        console.log(dadosUsuario);
+      } catch (error) {
+        console.error('Erro ao obter dados do usuário:', error);
+      }
+    };
+
+    fetchData();
+  }, [uid]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.profileImage}>
-        <Image source={require('./profile.jpg')} style={styles.image} />
-      </View>
-      <View style={styles.userInfo}>
-        <Text style={styles.username}>Nome do Usuário</Text>
-        <Text style={styles.description}>Descrição do usuário Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-      </View>
-      <Text style={styles.infoHeading}>Informações:</Text>
-      <View style={styles.infoList}>
-        <Text><Text style={styles.boldText}>Idade:</Text> 25 anos</Text>
-        <Text><Text style={styles.boldText}>Localização:</Text> Cidade, País</Text>
-        <Text><Text style={styles.boldText}>Interesses:</Text> Esportes, Música, Viagens</Text>
-      </View>
+      <Text style={styles.username}>{nome}</Text>
+      <Text style={styles.email}>{email}</Text>
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'lightblue',
-    padding: 20,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    overflow: 'hidden',
-    backgroundColor: '#e1e1e1',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  userInfo: {
-    marginTop: 20,
   },
   username: {
-    margin: 0,
     fontSize: 24,
+    marginBottom: 10,
   },
-  description: {
-    margin: 0,
+  email: {
     fontSize: 16,
-  },
-  infoHeading: {
-    marginVertical: 20,
-    fontSize: 18,
-  },
-  infoList: {
-    listStyle: 'none',
-    padding: 0,
-  },
-  boldText: {
-    fontWeight: 'bold',
   },
 });
 
