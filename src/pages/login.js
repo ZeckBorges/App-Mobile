@@ -4,14 +4,24 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Perfil from './perfil';
 
+// Importando as variáveis de ambiente do arquivo .env
+import {
+  APIKEY,
+  AUTHDOMAIN,
+  PROJECTID,
+  STORAGEBUCKET,
+  MESSAGINGSIGNID,
+  APPID,
+} from 'react-native-dotenv';
+
 // Configuração do Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCYWlBaZAM0qeE0uon8xCK70aYxer_uvaQ",
-  authDomain: "todolist-c6330.firebaseapp.com",
-  projectId: "todolist-c6330",
-  storageBucket: "todolist-c6330.appspot.com",
-  messagingSenderId: "329089233545",
-  appId: "1:329089233545:web:f95708cb7814496f810c58"
+  apiKey: APIKEY,
+  authDomain: AUTHDOMAIN,
+  projectId: PROJECTID,
+  storageBucket: STORAGEBUCKET,
+  messagingSenderId: MESSAGINGSIGNID,
+  appId: APPID,
 };
 
 initializeApp(firebaseConfig);
