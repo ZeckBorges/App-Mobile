@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "dotenv": "^16.3.1",
-    "react-native-dotenv": "^3.4.9"
-  }
-=======
   "name": "app-mobile",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -31,5 +25,4 @@
     "@babel/core": "^7.20.0"
   },
   "private": true
->>>>>>> 27f4b43b56c97fc689f9c70cafd5804862e24e4d
 }
