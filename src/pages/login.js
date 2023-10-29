@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import Perfil from './perfil';
+import Constants from 'expo-constants'; // Importe expo-constants
 
 // Importando as variáveis de ambiente do arquivo .env
 import {
@@ -12,7 +12,7 @@ import {
   STORAGEBUCKET,
   MESSAGINGSIGNID,
   APPID,
-} from 'react-native-dotenv';
+} from '@env';
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -31,24 +31,22 @@ const Login = ({ navigation }) => {
   const [senha, setSenha] = useState('');
 
   const handleLogin = async () => {
-
     try {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, email, senha)
-      .then( async (userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            const uid = user.uid;
-            console.log('id',uid);
+        .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          const uid = user.uid;
+          console.log('id', uid);
 
-            navigation.navigate('Perfil', {uid});
-            
-            
-      }).catch((error) => {
+          navigation.navigate('Perfil', { uid });
+        })
+        .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-      });
-      
+        });
+
     } catch (error) {
       console.error('Erro ao fazer login:', error);
     }
